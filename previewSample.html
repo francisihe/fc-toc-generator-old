@@ -1,0 +1,730 @@
+<html lang="en">
+
+<head></head>
+<meta charset="utf-8">
+<meta http-equiv="X-UA-Compatible" content="IE=edge">
+<title>How to Deploy an API with Puppeteer on Render With And Without&nbsp;Docker: A Step-by-Step Guide</title>
+<meta name="HandheldFriendly" content="True">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="">
+<link rel="stylesheet" as="style" onload="this.onload=null;this.rel='stylesheet'"
+    href="https://fonts.googleapis.com/css2?family=Lato:ital,wght@0,300;0,400;0,700;1,400&amp;family=Roboto+Mono:wght@400;700&amp;display=swap">
+
+
+<link rel="stylesheet" as="style" onload="this.onload=null;this.rel='stylesheet'"
+    href="https://cdn.freecodecamp.org/news-assets/prism/1.29.0/themes/prism.min.css">
+<noscript>
+    <link rel="stylesheet" href="https://cdn.freecodecamp.org/news-assets/prism/1.29.0/themes/prism.min.css" />
+</noscript>
+<link rel="stylesheet" as="style" onload="this.onload=null;this.rel='stylesheet'"
+    href="https://cdn.freecodecamp.org/news-assets/prism/1.29.0/plugins/unescaped-markup/prism-unescaped-markup.min.css">
+<noscript>
+    <link rel="stylesheet"
+        href="https://cdn.freecodecamp.org/news-assets/prism/1.29.0/plugins/unescaped-markup/prism-unescaped-markup.min.css" />
+</noscript>
+<script defer="" src="https://cdn.freecodecamp.org/news-assets/prism/1.29.0/components/prism-core.min.js"></script>
+<script defer=""
+    src="https://cdn.freecodecamp.org/news-assets/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+
+
+
+
+
+
+
+<link rel="icon" href="https://cdn.freecodecamp.org/universal/favicons/favicon.ico" type="image/png">
+<meta name="referrer" content="no-referrer-when-downgrade">
+
+
+
+
+<meta property="og:site_name" content="freeCodeCamp.org">
+<meta property="og:type" content="article">
+<meta property="og:title"
+    content="How to Deploy an API with Puppeteer on Render With And Without&nbsp;Docker: A Step-by-Step Guide">
+
+<meta property="og:url"
+    content="www.freecodecamp.org/news/how-to-deploy-an-api-with-puppeteer-on-render-with-and-without-docker-a-step-by-step-guide/">
+<meta property="og:image" content="https://cdn.freecodecamp.org/platform/universal/fcc_meta_1920X1080-indigo.png">
+<meta property="article:published_time" content="1/17/2025">
+<meta property="article:modified_time" content="2025-01-17T12:33:15.239Z">
+
+<meta property="article:publisher" content="https://www.facebook.com/freecodecamp">
+
+
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title"
+    content="How to Deploy an API with Puppeteer on Render With And Without&nbsp;Docker: A Step-by-Step Guide">
+
+<meta name="twitter:url"
+    content="https://www.freecodecamp.org/news/how-to-deploy-an-api-with-puppeteer-on-render-with-and-without-docker-a-step-by-step-guide/">
+<meta name="twitter:image" content="https://cdn.freecodecamp.org/platform/universal/fcc_meta_1920X1080-indigo.png">
+<meta name="twitter:label1" content="Written by">
+<meta name="twitter:data1" content="Francis Ihejirika">
+<meta name="twitter:label2" content="Filed under">
+<meta name="twitter:data2" content="">
+<meta name="twitter:site" content="https://twitter.com/freecodecamp/">
+
+<meta name="twitter:creator" content="https://twitter.com/francisihej">
+
+
+
+
+<script defer="" src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+
+<meta name="generator" content="Eleventy">
+</head>
+
+<body class="home-template" data-new-gr-c-s-check-loaded="14.1217.0" data-gr-ext-installed="">
+    <div class="site-wrapper">
+
+        <nav class="site-nav nav-padding">
+            <div class="site-nav-left">
+                <form id="search-form" data-test-label="search-bar">
+                    <div role="search" class="searchbox__wrapper">
+                        <label class="fcc_sr_only" for="search-input"> Search </label>
+                        <input type="search" placeholder="Search our tutorials" id="search-input">
+                        <button type="submit" class="ais-SearchBox-submit">
+
+                            <svg class="ais-SearchBox-submitIcon" xmlns="https://www.w3.org/2000/svg" width="10"
+                                height="10" viewBox="0 0 40 40">
+                                <path
+                                    d="M26.804 29.01c-2.832 2.34-6.465 3.746-10.426 3.746C7.333 32.756 0 25.424 0 16.378 0 7.333 7.333 0 16.378 0c9.046 0 16.378 7.333 16.378 16.378 0 3.96-1.406 7.594-3.746 10.426l10.534 10.534c.607.607.61 1.59-.004 2.202-.61.61-1.597.61-2.202.004L26.804 29.01zm-10.426.627c7.323 0 13.26-5.936 13.26-13.26 0-7.32-5.937-13.257-13.26-13.257C9.056 3.12 3.12 9.056 3.12 16.378c0 7.323 5.936 13.26 13.258 13.26z">
+                                </path>
+                            </svg>
+
+                            <span class="fcc_sr_only">Submit your search query</span>
+                        </button>
+                        <div id="dropdown-container"></div>
+                    </div>
+                </form>
+            </div>
+            <div class="site-nav-middle">
+                <a class="site-nav-logo" href="https://www.freecodecamp.org/news/" data-test-label="site-nav-logo"><img
+                        src="https://cdn.freecodecamp.org/platform/universal/fcc_primary.svg"
+                        alt="freeCodeCamp.org"></a>
+            </div>
+            <div class="site-nav-right">
+                <div class="nav-group">
+                    <a class="nav-forum" id="nav-forum" rel="noopener noreferrer" href="https://forum.freecodecamp.org/"
+                        target="_blank" data-test-label="forum-button">Forum</a>
+                    <a class="toggle-button-nav" id="nav-donate" rel="noopener noreferrer"
+                        href="https://www.freecodecamp.org/donate/" target="_blank"
+                        data-test-label="donate-button">Donate</a>
+                </div>
+            </div>
+        </nav>
+
+
+        <a class="banner" id="banner" data-test-label="banner" rel="noopener noreferrer" target="_blank">
+            <p id="banner-text">
+                Learn to code — <span>free 3,000-hour curriculum</span>
+            </p>
+        </a>
+
+
+        <main id="site-main" class="post-template site-main outer">
+            <div class="inner ad-layout">
+                <article class="post-full post">
+                    <header class="post-full-header">
+                        <section class="post-full-meta">
+                            <time class="post-full-meta-date" datetime="1/17/2025">January 17, 2025</time>
+
+                        </section>
+                        <h1 class="post-full-title">How to Deploy an API with Puppeteer on Render With And
+                            Without&nbsp;Docker: A Step-by-Step Guide</h1>
+                    </header>
+                    <div class="post-full-author-header" data-test-label="author-header-no-bio">
+
+
+
+                        <section class="author-card" data-test-label="author-card">
+
+
+                            <img srcset="https://cdn.hashnode.com/res/hashnode/image/upload/v1699002649430/0b270999-57f6-4325-91ce-dc561059b6af.png 60w"
+                                sizes="60px"
+                                src="https://cdn.hashnode.com/res/hashnode/image/upload/v1699002649430/0b270999-57f6-4325-91ce-dc561059b6af.png"
+                                class="author-profile-image" alt="Francis Ihejirika" onerror="this.style.display='none'"
+                                loading="lazy" data-test-label="author-profile-image">
+
+
+                            <section class="author-card-content author-card-content-no-bio">
+                                <span class="author-card-name">
+                                    <a href="https://www.freecodecamp.org/news/author/francisihe/"
+                                        data-test-label="profile-link">
+                                        Francis Ihejirika
+                                    </a>
+                                </span>
+                            </section>
+                        </section>
+
+
+                    </div>
+                    <figure class="post-full-image">
+
+                        <picture>
+                            <source media="(max-width: 700px)" sizes="1px" srcset="
+                    data:image/gif;base64,R0lGODlhAQABAIAAAAAAAP///yH5BAEAAAAALAAAAAABAAEAAAIBRAA7 1w
+                  ">
+                            <source media="(min-width: 701px)"
+                                sizes="(max-width: 800px) 400px, (max-width: 1170px) 700px, 1400px"
+                                srcset="https://cdn.freecodecamp.org/platform/universal/fcc_meta_1920X1080-indigo.png">
+                            <img onerror="this.style.display='none'"
+                                alt="Learn How to Deploy Web Apps to Digital Ocean [Full Course]"
+                                data-test-label="feature-image"
+                                data-cfsrc="https://cdn.freecodecamp.org/platform/universal/fcc_meta_1920X1080-indigo.png"
+                                src="https://cdn.freecodecamp.org/platform/universal/fcc_meta_1920X1080-indigo.png">
+                        </picture>
+
+                    </figure>
+                    <section class="post-full-content">
+                        <div class="post-and-sidebar">
+                            <section class="post-content" data-test-label="post-content">
+                                <hr>
+                                <h3 id="heading-how-to-deploy-an-api-with-puppeteer-on-render-with-and-without-docker">
+                                    How To Deploy an API With Puppeteer On Render With And Without Docker</h3>
+                                <h3 id="heading-introduction">Introduction:</h3>
+                                <p>I previously wrote a guide on <a target="_blank"
+                                        href="https://medium.com/@francisihe/deploying-an-api-with-puppeteer-on-google-cloud-run-aaca2baf9513">Deploying
+                                        an API with Puppeteer on Google Cloud Run</a>. I deployed the same codebase to
+                                    Render as I often prefer to use Render as a development environment because I
+                                    consider it the closest to what is obtainable on a local machine; this is to avoid
+                                    the “it works on my machine, I’m not sure why it is not working on the server” type
+                                    of situation.</p>
+                                <p>There are two ways to get Puppeteer working on Render. We’ll discuss both methods and
+                                    highlight common errors and workarounds.</p>
+                                <h3 id="heading-overview">Overview:</h3>
+                                <p>The deployed project used NodeJS/Express on the backend and React/Vite on the front
+                                    end. </p>
+                                <p>Below is a sample project structure showing the two directories in our
+                                    repository — the API directory and the client directory. We are only concerned with
+                                    the API directory as this is where Puppeteer is installed as a dependency. We will
+                                    be deploying the API folder to Render.</p>
+                                <p><img src="https://cdn-images-1.medium.com/max/800/1*Vkh8EyIA5qamhoJOz2ksSg.png"
+                                        alt=""></p>
+                                <h3 id="heading-what-is-puppeteer">What is Puppeteer?</h3>
+                                <p>Puppeteer is a library that helps you perform automated functions within your API.
+                                    This could range from simple tasks such as generating screenshots to more complex
+                                    tasks like running a script within a browser spun by the library, navigating to URLs
+                                    to perform functions such as logging in as a user and returning some information to
+                                    an external server, all without human intervention. The official page and
+                                    documentation can be found here: <a target="_blank"
+                                        href="https://pptr.dev/">https://pptr.dev/</a>. According to the official
+                                    website,</p>
+                                <blockquote>
+                                    <p>Puppeteer is a JavaScript library which provides a high-level API to control
+                                        Chrome or Firefox over the <a target="_blank"
+                                            href="https://chromedevtools.github.io/devtools-protocol/">DevTools
+                                            Protocol</a> or <a target="_blank"
+                                            href="https://pptr.dev/webdriver-bidi">WebDriver BiDi</a>. Puppeteer runs in
+                                        the headless (no visible UI) by default <em>(<strong>**Source,</strong></em> <a
+                                            target="_blank"
+                                            href="https://pptr.dev/"><strong><em>Puppeteer</em></strong></a><em>)</em>
+                                    </p>
+                                </blockquote>
+                                <hr>
+                                <h3 id="heading-method-1-deploying-to-render-without-using-a-dockerfile">METHOD 1:
+                                    Deploying To Render WITHOUT using a Dockerfile</h3>
+                                <p>When deploying to Render without using Docker, there are some configurations required
+                                    to ensure your Puppeteer runs correctly. Here are the steps:</p>
+                                <h4 id="heading-step-1-prepare-your-api-directory"><strong>Step 1: Prepare your API
+                                        directory</strong></h4>
+                                <p>You do this by adding the Puppeteer configuration file to dynamically set the
+                                    location where Chrome will be installed and spawned when Puppeteer attempts to run,
+                                    afterwards, we’ll add the command to ensure Chrome is installed in the correct
+                                    location.</p>
+                                <ol>
+                                    <li>Add a Puppeteer configuration file named <code>puppeteer.config.cjs</code> at
+                                        the root of your API directory. Note that the file extension should be exactly
+                                        .cjs whether or not you are utilizing CommonJs or ES Modules in your API. The
+                                        content of the file should be:</li>
+                                </ol>
+                                <pre class="language-plaintext" tabindex="0"><code class="language-plaintext">const { join } = require('path');
+
+/**
+ * @type {import("puppeteer").Configuration}
+ */
+module.exports = {
+  // Changes the cache location for Puppeteer.
+  cacheDirectory: join(__dirname, '.cache', 'puppeteer'),
+};
+</code></pre>
+                                <p>2. Add a build command in your <code>package.json</code> file.</p>
+                                <p>In your <code>package.json</code> file, add a
+                                    <code>“build”: “npm install &amp;&amp; npx puppeteer browsers install chrome”</code>
+                                    command. This ensures that our project dependencies, as defined in the file are
+                                    installed before Chrome is installed.</p>
+                                <p><img src="https://cdn-images-1.medium.com/max/800/1*shfVMTlsZchK66TXC-W0ug.png"
+                                        alt=""></p>
+                                <h4 id="heading-step-2-select-the-correct-language-branch-and-directory-on-render">Step
+                                    2: Select the correct language, branch and directory on Render</h4>
+                                <p>When deploying the new web service to Render, you will be presented with a screen to
+                                    connect your repository, select a unique name, language, branch and root directory
+                                    for your project.</p>
+                                <p>Connect the correct repository where your project files live using your preferred Git
+                                    service, add a unique name for your service.</p>
+                                <p>Select <strong><em>Node</em></strong> as the Language as we are deploying a NodeJS
+                                    API, and given our project structure, we input <strong><em>/api</em></strong> as our
+                                    root directory. This is also where we have our Puppeteer config file as well as our
+                                    package.json file.</p>
+                                <p><img src="https://cdn-images-1.medium.com/max/1200/1*-T_1LcHvMSmiZid-HcXtxA.png"
+                                        alt=""></p>
+                                <h4
+                                    id="heading-step-3-add-the-correct-build-and-start-commands-environment-variables-and-deploy-your-service">
+                                    Step 3: Add the correct build and start commands, environment variables and deploy
+                                    your service</h4>
+                                <p>Remember the “build” script command we added to our package.json file? This is where
+                                    it comes in handy. For the Build Command on Render, you use your correct command,
+                                    depending on what is setup in your package.json file.</p>
+                                <p>Given our structure, for our Build Command we will input
+                                    <code>“npm install &amp;&amp; npm run build”</code> which will ensure our
+                                    dependencies are installed and the
+                                    <code>“npx puppeteer browsers install chrome”</code> command which is now a part of
+                                    our build command as defined in our package.json file installs Chrome.</p>
+                                <p>For the Start Command, we simply use <code>npm start</code> .</p>
+                                <p>Afterwards, select the Instance Type, insert your environment variables and deploy
+                                    your service. Your server should deploy correctly and your Puppeteer script work as
+                                    expected.</p>
+                                <p><img src="https://cdn-images-1.medium.com/max/1200/1*-4fNkgXtQF4_s8wlFkjhrg.png"
+                                        alt=""></p>
+                                <h4
+                                    id="heading-error-message-if-puppeteer-configuration-file-and-correct-build-commands-are-missing">
+                                    Error Message If Puppeteer Configuration File and Correct Build Commands Are Missing
+                                </h4>
+                                <p>In the screenshot below, we can see two error messages:</p>
+                                <ol>
+                                    <li>
+                                        <p>You did not perform an installation before running the script (e.g. ‘npx
+                                            puppeteer browsers install chrome’</p>
+                                    </li>
+                                    <li>
+                                        <p>Your cache path is incorrectly configured (which is:
+                                            /opt/render/.cache/puppeteer)</p>
+                                    </li>
+                                </ol>
+                                <p>These error messages will show up if we fail to include the Puppeteer configuration
+                                    file or run the correct build command to install Chrome before deploying our Web API
+                                    service.</p>
+                                <p><img src="https://cdn-images-1.medium.com/max/1200/1*F3ilsB9p7ZYdicxwa3Z-EQ.png"
+                                        alt=""></p>
+                                <hr>
+                                <h3 id="heading-method-2-deploying-to-render-using-a-dockerfile">METHOD 2: Deploying To
+                                    Render using a Dockerfile</h3>
+                                <p>This is perhaps an easier way to ensure that our NodeJS app runs in any environment
+                                    without encountering configuration errors, installation errors or having to manually
+                                    specify an installation path within our codebase. </p>
+                                <h4 id="heading-step-1-create-a-dockerfile-at-the-root-of-your-directory">Step 1: Create
+                                    a Dockerfile at the root of your directory</h4>
+                                <p>Create a file named “Dockerfile” in your API directory. Note that this is case
+                                    sensitive, and as such, the ‘D’ should be capital, and without extensions — simply
+                                    Dockerfile.</p>
+                                <p>Add the following to your Dockerfile. In the code below, you can see we set the
+                                    working directory for our app. This working directory may be needed depending on how
+                                    you structure your Puppeteer script. An example is added below.</p>
+                                <pre class="language-plaintext" tabindex="0"><code class="language-plaintext"># Use the official Node.js image as the base image
+FROM node:18-slim
+
+# Set the working directory
+WORKDIR /usr/src/app
+
+# We don't need the standalone Chromium
+ENV PUPPETEER_SKIP_CHROMIUM_DOWNLOAD true
+
+# Install Google Chrome Stable and fonts
+# Note: this installs the necessary libs to make the browser work with Puppeteer.
+RUN apt-get update &amp;&amp; apt-get install gnupg wget -y &amp;&amp; \
+    wget --quiet --output-document=- https://dl-ssl.google.com/linux/linux_signing_key.pub | gpg --dearmor &gt; /etc/apt/trusted.gpg.d/google-archive.gpg &amp;&amp; \
+    sh -c 'echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" &gt;&gt; /etc/apt/sources.list.d/google.list' &amp;&amp; \
+    apt-get update &amp;&amp; \
+    apt-get install google-chrome-stable -y --no-install-recommends &amp;&amp; \
+    rm -rf /var/lib/apt/lists/*
+
+# Verify that Chrome is installed at the expected location
+RUN ls -alh /usr/bin/google-chrome-stable &amp;&amp; \
+    /usr/bin/google-chrome-stable --version
+
+# Copy package.json and package-lock.json
+COPY package*.json ./
+
+# Install app dependencies including Puppeteer
+RUN npm install
+
+# Bundle app source code
+COPY . .
+
+# Expose the port on which your app will run
+EXPOSE 8080
+
+# Start the application
+CMD ["npm", "start"]
+</code></pre>
+                                <p>The Dockerfile above ensures the following:</p>
+                                <ol>
+                                    <li>
+                                        <p>Grabs the specified official Nodejs image</p>
+                                    </li>
+                                    <li>
+                                        <p>Skipps downloading Chromium as we will be installing a stable version of
+                                            Chrome in the next step.</p>
+                                    </li>
+                                    <li>
+                                        <p>Installs a stable version of Chrome as well as other packages required by
+                                            Puppeteer. Do note that the packages installed are for Debian Linux. If you
+                                            prefer to have packages for a different distribution of Linux, you can look
+                                            through the list in the link below to help:<br> <a target="_blank"
+                                                href="https://source.chromium.org/chromium/chromium/src/+/main:chrome/installer/linux/debian/dist_package_versions.json">https://source.chromium.org/chromium/chromium/src/+/main:chrome/installer/linux/debian/dist_package_versions.json</a>
+                                        </p>
+                                    </li>
+                                    <li>
+                                        <p>Adds a verification command to be certain that the installation is successful
+                                            and exists in the correct location</p>
+                                    </li>
+                                    <li>
+                                        <p>Copies the dependencies in the package.json file to the current working
+                                            directory</p>
+                                    </li>
+                                    <li>
+                                        <p>Installs the dependencies, including Puppeteer</p>
+                                    </li>
+                                    <li>
+                                        <p>Copies the code from the current directory (API directory) into the current
+                                            working directory as set in the Dockerfile, exposes the port and runs the
+                                            start command</p>
+                                    </li>
+                                </ol>
+                                <h4 id="heading-step-2-select-docker-as-language-and-specify-the-dockerfile-path">Step
+                                    2: Select Docker as Language and specify the Dockerfile path</h4>
+                                <p>After connecting the preferred repository, where our files are, we select Docker as
+                                    the language from the language dropdown. </p>
+                                <p>Our API is a NodeJs API in the actual sense but since we are containerizing the app
+                                    using Docker, we simply select Docker, and Render takes care of the rest using the
+                                    steps specified in the Dockerfile.</p>
+                                <p>Next, we specify the root directory /api, and add the path to our Dockerfile. Since
+                                    our Dockerfile is in the API root directory already specified above, we simply add a
+                                    “.” to indicate this or leave blank.</p>
+                                <p><img src="https://cdn-images-1.medium.com/max/1200/1*7HPVADHrHrUgRk7j8setDA.png"
+                                        alt=""></p>
+                                <p>After specifying the above, you simply select your instance type, include your
+                                    environment variables and deploy your service.</p>
+                                <p>Your server and Puppeteer scripts should run as intended.</p>
+                                <h3 id="heading-quick-note-adding-your-installation-path-to-your-puppeteer-script">Quick
+                                    Note: Adding your installation path to your Puppeteer script</h3>
+                                <p>Depending on how your script is setup, you may be required to include the
+                                    installation path to where your Chrome browser is installed. </p>
+                                <p>Note that if you deploy on Render using method 1 above, where we directly included
+                                    the path to the installation using the Puppeteer configuration file at the root of
+                                    our directory, you will not be required to manually add this to your script.</p>
+                                <p>On the contrary, if you make use of method 2, where we utilize Docker, you will be
+                                    required to add the installation path. Make reference to the content of the
+                                    Dockerfile where you specified the working directory, and simply deduce the
+                                    installation path for Chrome.</p>
+                                <p>Below is an example of my Puppeteer script using a Dockerfile where I inserted the
+                                    path to my Chrome installation in my Dockerfile:</p>
+                                <pre class="language-plaintext" tabindex="0"><code class="language-plaintext">let browser;
+
+        console.log('Attempting to automate admin login...');
+        console.log('Launching Puppeteer...');
+
+        let launchOptions = {
+            headless: true,
+            args: ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage', '--disable-accelerated-2d-canvas', '--disable-gpu'],
+            executablePath: '/usr/bin/google-chrome-stable' // path to Google Chrome
+
+        };
+
+        browser = await puppeteer.launch(launchOptions);
+        const page = await browser.newPage();
+
+// continue with the rest of your script...
+</code></pre>
+                                <h3 id="heading-conclusion"><strong>Conclusion:</strong></h3>
+                                <p>Deploying an API using Puppeteer as one of the dependencies can be a little tricky
+                                    but using the above methods, you should easily get a hang of it.</p>
+                                <p>Puppeteer’s official website also has a comprehensive list of errors people may
+                                    encounter when deploying to different environments such as on AWS Lambda, Heroku,
+                                    Google Cloud Functions, Windows subsystem for Linux and a couple of others. You can
+                                    check it out here: <a target="_blank"
+                                        href="https://pptr.dev/troubleshooting">https://pptr.dev/troubleshooting</a>.
+                                </p>
+                                <p>Connect With Me:</p>
+                                <p><strong>Twitter/X</strong>: <a target="_blank"
+                                        href="https://twitter.com/FrancisIhej">@francisihej</a><br><strong>YouTube</strong>:
+                                    <a target="_blank"
+                                        href="https://www.youtube.com/channel/UCeWg0OinJrTO5O_uTup_WXA">https://www.youtube.com/channel/UCeWg0OinJrTO5O_uTup_WXA</a><br><strong>LinkedIn</strong>:
+                                    <a target="_blank"
+                                        href="https://linkedin.com/in/francis-ihejirika">https://linkedin.com/in/francis-ihejirika</a>
+                                </p>
+
+                            </section>
+                            <div class="sidebar">
+
+                                <div class="ad-wrapper" data-test-label="ad-wrapper">
+                                    <div class="ad-text" data-test-label="ad-text">
+                                        ADVERTISEMENT
+                                    </div>
+                                    <ins class="adsbygoogle" style="display: block; height: 280px" data-ad-format="auto"
+                                        data-full-width-responsive="true"></ins>
+                                </div>
+
+                            </div>
+                        </div>
+                        <hr>
+                        <div class="post-full-author-header" data-test-label="author-header-with-bio">
+
+
+                            <section class="author-card" data-test-label="author-card">
+
+
+                                <img srcset="https://cdn.hashnode.com/res/hashnode/image/upload/v1699002649430/0b270999-57f6-4325-91ce-dc561059b6af.png 60w"
+                                    sizes="60px"
+                                    src="https://cdn.hashnode.com/res/hashnode/image/upload/v1699002649430/0b270999-57f6-4325-91ce-dc561059b6af.png"
+                                    class="author-profile-image" alt="Francis Ihejirika"
+                                    onerror="this.style.display='none'" loading="lazy"
+                                    data-test-label="author-profile-image">
+
+
+                                <section class="author-card-content">
+                                    <span class="author-card-name">
+                                        <a href="https://www.freecodecamp.org/news/author/francisihe/"
+                                            data-test-label="profile-link">
+                                            Francis Ihejirika
+                                        </a>
+                                    </span>
+
+                                    <p data-test-label="default-bio">
+                                        Read
+                                        <a href="https://www.freecodecamp.org/news/author/francisihe/">more posts</a>.
+                                    </p>
+
+                                </section>
+                            </section>
+
+                        </div>
+                        <hr>
+                    </section>
+                    <div class="banner-ad bottom">
+
+                        <div class="ad-wrapper" data-test-label="ad-wrapper">
+                            <div class="ad-text" data-test-label="ad-text">
+                                ADVERTISEMENT
+                            </div>
+                            <ins class="adsbygoogle" style="display: block; height: 280px" data-ad-format="auto"
+                                data-full-width-responsive="true"></ins>
+                        </div>
+
+                    </div>
+                </article>
+            </div>
+        </main>
+
+
+        <footer class="site-footer">
+            <div class="footer-top">
+                <div class="footer-desc-col">
+                    <p data-test-label="tax-exempt-status">
+                        freeCodeCamp is a donor-supported tax-exempt 501(c)(3) charity
+                        organization (United States Federal Tax Identification Number:
+                        82-0779546)
+                    </p>
+                    <p data-test-label="mission-statement">
+                        Our mission: to help people learn to code for free. We accomplish
+                        this by creating thousands of videos, articles, and interactive
+                        coding lessons - all freely available to the public.
+                    </p>
+                    <p data-test-label="donation-initiatives">
+                        Donations to freeCodeCamp go toward our education initiatives, and
+                        help pay for servers, services, and staff.
+                    </p>
+                    <p class="footer-donation" data-test-label="donate-text">
+                        You can
+                        <a href="https://www.freecodecamp.org/donate/">make a tax-deductible donation here</a>.
+                    </p>
+                </div>
+                <div class="trending-guides" data-test-label="trending-guides">
+                    <h2 id="trending-guides" class="col-header">Trending Guides</h2>
+                    <ul class="trending-guides-articles" aria-labelledby="trending-guides">
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 1</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 2</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 3</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 4</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 5</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 6</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 7</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 8</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 9</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 10</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 11</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 12</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 13</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 14</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 15</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 16</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 17</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 18</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 19</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 20</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 21</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 22</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 23</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 24</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 25</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 26</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 27</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 28</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 29</a>
+                        </li>
+                        <li>
+                            <a rel="noopener noreferrer" target="_blank">Article 30</a>
+                        </li>
+                    </ul>
+                    <div class="spacer" style="padding: 15px 0"></div>
+                    <div>
+                        <h2 id="mobile-app" class="col-header">Mobile App</h2>
+                        <div class="min-h-[1px] px-[15px] md:w-2/3 md:ml-[16.6%]">
+                            <ul aria-labelledby="mobile-app" class="mobile-app-container">
+                                <li>
+                                    <a href="https://apps.apple.com/us/app/freecodecamp/id6446908151?itsct=apps_box_link&amp;itscg=30200"
+                                        rel="noopener noreferrer" target="_blank">
+                                        <img src="https://cdn.freecodecamp.org/platform/universal/apple-store-badge.svg"
+                                            lang="en" alt="Download on the App Store">
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="https://play.google.com/store/apps/details?id=org.freecodecamp"
+                                        rel="noopener noreferrer" target="_blank">
+                                        <img src="https://cdn.freecodecamp.org/platform/universal/google-play-badge.svg"
+                                            lang="en" alt="Get it on Google Play">
+                                    </a>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-bottom">
+                <h2 class="col-header" data-test-label="our-nonprofit">
+                    Our Charity
+                </h2>
+                <div class="our-nonprofit">
+                    <a href="https://www.freecodecamp.org/news/about/" rel="noopener noreferrer" target="_blank"
+                        data-test-label="about">
+                        About
+                    </a>
+                    <a href="https://www.linkedin.com/school/free-code-camp/people/" rel="noopener noreferrer"
+                        target="_blank" data-test-label="alumni">
+                        Alumni Network
+                    </a>
+                    <a href="https://github.com/freeCodeCamp/" rel="noopener noreferrer" target="_blank"
+                        data-test-label="open-source">
+                        Open Source
+                    </a>
+                    <a href="https://www.freecodecamp.org/news/shop/" rel="noopener noreferrer" target="_blank"
+                        data-test-label="shop">
+                        Shop
+                    </a>
+                    <a href="https://www.freecodecamp.org/news/support/" rel="noopener noreferrer" target="_blank"
+                        data-test-label="support">
+                        Support
+                    </a>
+                    <a href="https://www.freecodecamp.org/news/sponsors/" rel="noopener noreferrer" target="_blank"
+                        data-test-label="sponsors">
+                        Sponsors
+                    </a>
+                    <a href="https://www.freecodecamp.org/news/academic-honesty-policy/" rel="noopener noreferrer"
+                        target="_blank" data-test-label="honesty">
+                        Academic Honesty
+                    </a>
+                    <a href="https://www.freecodecamp.org/news/code-of-conduct/" rel="noopener noreferrer"
+                        target="_blank" data-test-label="coc">
+                        Code of Conduct
+                    </a>
+                    <a href="https://www.freecodecamp.org/news/privacy-policy/" rel="noopener noreferrer"
+                        target="_blank" data-test-label="privacy">
+                        Privacy Policy
+                    </a>
+                    <a href="https://www.freecodecamp.org/news/terms-of-service/" rel="noopener noreferrer"
+                        target="_blank" data-test-label="tos">
+                        Terms of Service
+                    </a>
+                    <a href="https://www.freecodecamp.org/news/copyright-policy/" rel="noopener noreferrer"
+                        target="_blank" data-test-label="copyright">
+                        Copyright Policy
+                    </a>
+                </div>
+            </div>
+        </footer>
+
+    </div>
+    <script defer=""
+        src="https://static.cloudflareinsights.com/beacon.min.js/vcd15cbe7772f49c399c6a5babf22c1241717689176015"
+        integrity="sha512-ZpsOmlRQV6y907TI0dKBHq9Md29nnaEIPlkf84rnaERnq6zvWvPUqr2ft8M1aS28oN72PdrCzSjY4U6VaAw1EQ=="
+        data-cf-beacon="{&quot;rayId&quot;:&quot;9039e0f928bbf65f&quot;,&quot;serverTiming&quot;:{&quot;name&quot;:{&quot;cfExtPri&quot;:true,&quot;cfL4&quot;:true,&quot;cfSpeedBrain&quot;:true,&quot;cfCacheStatus&quot;:true}},&quot;version&quot;:&quot;2025.1.0&quot;,&quot;token&quot;:&quot;bdb993c6dde44e178aabd9555e75e4f4&quot;}"
+        crossorigin="anonymous"></script>
+
+    <div class="embed-wrapper"><iframe scrolling="no" frameborder="0" allowtransparency="true"
+            src="https://platform.twitter.com/widgets/widget_iframe.2f70fb173b9000da126c79afe2098f02.html?origin=https%3A%2F%2Fpreview.freecodecamp.org"
+            title="Twitter settings iframe" style="display: none;" loading="lazy"></iframe></div><iframe
+        id="rufous-sandbox" scrolling="no" frameborder="0" allowtransparency="true" allowfullscreen="true"
+        style="position: absolute; visibility: hidden; display: none; width: 0px; height: 0px; padding: 0px; border: none;"
+        title="Twitter analytics iframe"></iframe>
+</body><grammarly-desktop-integration data-grammarly-shadow-root="true"></grammarly-desktop-integration>
+
+</html>
